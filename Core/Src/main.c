@@ -210,11 +210,25 @@ int main(void)
   int index_led = 0;
   int state = 0;
   int hour = 15, minute = 8, second = 50;
-//  setTimer0(1000);
+  setTimer0(1000);
   while (1) {
-	  if( timer0_flag == 1){
-		  HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin );
-		  setTimer0 (2000) ;
+	  second++;
+	  	if(second >= 60){
+	  		second = 0;
+	  		minute++;
+	  	}
+	  	if(minute >= 60){
+	  		minute = 0;
+	  		hour++;
+	  	}
+	  	if(hour >= 24){
+	  		hour = 0;
+	  	}
+	  	updateClockBuffer(hour, minute);
+
+	  if(timer0_flag == 1){
+		  setTimer0(500);
+		  HAL_GPIO_TogglePin(GPIOA, LED_RED_DOT_Pin);
 	  }
   }
 }
