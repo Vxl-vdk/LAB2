@@ -144,8 +144,8 @@ int main(void)
   }
 
 //  const int MAX_LED = 4;
-  int index_led = 0;
-  int led_buffer[4] = {1, 2, 3, 0};
+
+  int led_buffer[4] = {1, 2, 3, 4};
   void update7SEG(int index){
 	  switch(index){
 	  case 0:
@@ -182,41 +182,43 @@ int main(void)
   }
 
   setTimer1(100);
+  int index_led = 0;
   int state = 0;
-
   while (1)
   {
+	  if(timer1_flag == 1){
+	  		setTimer1(100);
+	  		switch(state){
+	  		case 0:
+	  			update7SEG(index_led++);
+	  			state = 1;
+	  			break;
+	  		case 1:
+	  			update7SEG(index_led++);
+	  			state = 2;
+	  			break;
+	  		case 2:
+	  			update7SEG(index_led++);
+	  			state = 3;
+	  			break;
+	  		case 3:
+	  			update7SEG(index_led++);
+	  			state = 0;
+	  			index_led = 0;
+	  			break;
+	  		default:
+	  			break;
+	  		}
+	  	}
+
+	}
+}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	if(timer1_flag == 1){
-		setTimer1(100);
-		switch(state){
-		case 0:
-			update7SEG(index_led);
-			state = 1;
-			break;
-		case 1:
-			update7SEG(index_led);
-			state = 2;
-			break;
-		case 2:
-			update7SEG(index_led);
-			state = 3;
-			break;
-		case 3:
-			update7SEG(index_led);
-			state = 0;
-			index_led=0;
-			break;
-		default:
-			break;
-		}
-	index_led++;
-	}
-  }
-  /* USER CODE END 3 */
-}
+
+	/* USER CODE END 3 */
+
 
 /**
   * @brief System Clock Configuration
