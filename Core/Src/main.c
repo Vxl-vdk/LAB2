@@ -181,13 +181,14 @@ int main(void)
 	  }
   }
 
-  setTimer1(100);
+  setTimer1(50);
+  setTimer2(100);
   int index_led = 0;
   int state = 0;
   while (1)
   {
 	  if(timer1_flag == 1){
-	  		setTimer1(100);
+	  		setTimer1(50);
 	  		switch(state){
 	  		case 0:
 	  			update7SEG(index_led++);
@@ -211,6 +212,10 @@ int main(void)
 	  		}
 	  	}
 
+	  if(timer2_flag == 1){
+		  setTimer2(100);
+		  HAL_GPIO_TogglePin(GPIOA, LED_RED_DOT_Pin);
+	  }
 	}
 }
     /* USER CODE END WHILE */
@@ -343,7 +348,8 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 	void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim){
-		timerRun();
+		timer1Run();
+		timer2Run();
 	}
 /* USER CODE END 4 */
 
