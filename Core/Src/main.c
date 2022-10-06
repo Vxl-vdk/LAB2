@@ -156,9 +156,9 @@ int main(void)
 	  }
   }
 
-//  const int MAX_LED = 4;
+  const int MAX_LED = 4;
 
-  int led_buffer[4] = {0, 0, 0, 0};
+  int led_buffer[4] = {1, 5, 0, 8};
   void update7SEG(int index){
 	  switch(index){
 	  case 0:
@@ -205,31 +205,55 @@ int main(void)
 	  led_buffer[3] = minuteDigit2;
   }
 
-  setTimer1(50);
-  setTimer2(100);
+
   int index_led = 0;
   int state = 0;
   int hour = 15, minute = 8, second = 50;
   setTimer0(1000);
+  setTimer1(1000/MAX_LED);
   while (1) {
-	  second++;
-	  	if(second >= 60){
-	  		second = 0;
-	  		minute++;
-	  	}
-	  	if(minute >= 60){
-	  		minute = 0;
-	  		hour++;
-	  	}
-	  	if(hour >= 24){
-	  		hour = 0;
-	  	}
-	  	updateClockBuffer(hour, minute);
+	if(timer1_flag == 1){
+		setTimer1(1000/MAX_LED);
+		switch(state){
+		case 0:
+			update7SEG(index_led++);
+			state = 1;
+			break;
+		case 1:
+			update7SEG(index_led++);
+			state = 2;
+			break;
+		case 2:
+			update7SEG(index_led++);
+			state = 3;
+			break;
+		case 3:
+			update7SEG(index_led++);
+			state = 0;
+			index_led = 0;
+			break;
+		default:
+			break;
+		}
+	}
 
-	  if(timer0_flag == 1){
-		  setTimer0(500);
-		  HAL_GPIO_TogglePin(GPIOA, LED_RED_DOT_Pin);
-	  }
+	if(timer0_flag == 1){
+		second++;
+		if(second >= 60){
+			second = 0;
+			minute++;
+		}
+		if(minute >= 60){
+			minute = 0;
+			hour++;
+		}
+		if(hour >= 24){
+			hour = 0;
+		}
+		updateClockBuffer(hour, minute);
+		HAL_GPIO_TogglePin(GPIOA, LED_RED_DOT_Pin);
+		setTimer0(1000);
+	}
   }
 }
     /* USER CODE END WHILE */
