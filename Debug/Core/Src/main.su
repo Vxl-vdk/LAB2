@@ -1,8 +1,9 @@
 main.c:100:8:LED_7SEG_MODE	32	static
-main.c:66:5:main	16	static
-main.c:110:9:display7SEG	32	static
-main.c:183:6:SystemClock_Config	72	static
-main.c:219:13:MX_TIM2_Init	32	static
-main.c:264:13:MX_GPIO_Init	32	static
-main.c:298:7:HAL_TIM_PeriodElapsedCallback	16	static
-main.c:307:6:Error_Handler	4	static,ignoring_inline_asm
+main.c:66:5:main	48	static
+main.c:111:9:display7SEG	32	static
+main.c:149:8:update7SEG	24	static
+main.c:225:6:SystemClock_Config	72	static
+main.c:261:13:MX_TIM2_Init	32	static
+main.c:306:13:MX_GPIO_Init	32	static
+main.c:343:7:HAL_TIM_PeriodElapsedCallback	16	static
+main.c:352:6:Error_Handler	4	static,ignoring_inline_asm
