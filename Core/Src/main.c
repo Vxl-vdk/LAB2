@@ -252,6 +252,7 @@ int main(void)
 		}
 		updateClockBuffer(hour, minute);
 		HAL_GPIO_TogglePin(GPIOA, LED_RED_DOT_Pin);
+//		very IMPORTANT
 		setTimer0(1000);
 	}
   }
